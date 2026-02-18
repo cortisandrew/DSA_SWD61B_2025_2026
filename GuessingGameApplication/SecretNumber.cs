@@ -14,19 +14,35 @@ namespace GuessingGameApplication
         private int _secretNumber;
         private int _guesses = 0;
 
+        internal int GetSecretNumber() {
+            // Do not use this to cheat!    
+            // TODO: possible improvement is to disallow further guesses once this method or the summary is used
+            return _secretNumber;
+        }
+
         public int Guesses
         {
             get {  return _guesses; }
             private set { _guesses = value; }
         }
 
+        public int Min { get; private set; }
+        public int Max { get; private set; }
+
         /// <summary>
         /// Creates a secret number between 1 and n (both inclusive)
         /// </summary>
         /// <param name="n">Problem size</param>
-        public SecretNumber(int n)
+        public SecretNumber(int n = 100)
         {
-            _secretNumber = Random.Shared.Next(1, n + 1);
+            if (n < 1)
+            {
+                throw new ArgumentException("The problem size cannot be < 1", nameof(n));
+            }
+
+            Min = 1;
+            Max = n;
+            _secretNumber = Random.Shared.Next(1, n + 1); // Each number between 1 and n is equally likely
         }
 
         /// <summary>
@@ -47,7 +63,7 @@ namespace GuessingGameApplication
             {
                 return -1;
             }
-            else
+            else // _secretNumber > guess
             {
                 return 1;
             }
