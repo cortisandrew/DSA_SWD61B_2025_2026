@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ref_vs_Value_Types_Example"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuessingGameApplication", "GuessingGameApplication\GuessingGameApplication.csproj", "{D497D5DE-40CF-49D0-A740-7F48F41E6664}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataStructuresProject", "DataStructuresProject\DataStructuresProject.csproj", "{A81406EF-941F-4B80-B189-2FD38696D7C9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{D497D5DE-40CF-49D0-A740-7F48F41E6664}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D497D5DE-40CF-49D0-A740-7F48F41E6664}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D497D5DE-40CF-49D0-A740-7F48F41E6664}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A81406EF-941F-4B80-B189-2FD38696D7C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A81406EF-941F-4B80-B189-2FD38696D7C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A81406EF-941F-4B80-B189-2FD38696D7C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A81406EF-941F-4B80-B189-2FD38696D7C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
