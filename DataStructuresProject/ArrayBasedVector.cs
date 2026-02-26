@@ -14,14 +14,15 @@ namespace DataStructuresProject
     /// <typeparam name="T">This is the type of element stored</typeparam>
     public class ArrayBasedVector<T> : IVectorADT<T>
     {
-        private const int DEFAULT_LENGTH = 8;
+        private const int DEFAULT_LENGTH = 4;
         private T[] _array = new T[DEFAULT_LENGTH];
 
         public int Size { get; private set; }
 
         public void Append(T element)
         {
-            throw new NotImplementedException();
+            // Size is the next available rank, so we can simply place the element at rank Size
+            InsertElementAtRank(Size, element);
         }
 
         public T ElementAtRank(int rank)
@@ -39,7 +40,7 @@ namespace DataStructuresProject
             // if there are Size = 4 elements, the last element has a rank of 3
             if (rank >= Size)
             {
-                string message = 
+                string message =
                     Size == 0 ?
                         "There are no elements to return!" :
                         $"Rank must have a value between 0 and {Size - 1} (inclusive).";
@@ -64,7 +65,7 @@ namespace DataStructuresProject
             {
                 throw new ArgumentOutOfRangeException(nameof(rank), "Rank must be greater than or equal to 0");
             }
-            
+
             // if there are Size = 4 elements, the last element has a rank of 3. This means that I can place a new element
             // at rank 4
             // I am allowed to place the element at Rank == size
@@ -79,7 +80,18 @@ namespace DataStructuresProject
             if (Size == _array.Length)
             {
                 // _array is full!
-                throw new NotImplementedException("Implement array growth!");
+
+                // Create a new array with double the length of the current array
+                T[] newArray = new T[_array.Length * 2];
+
+                // Copy every element from the old array to the new array
+                for (int i = 0; i < _array.Length; i++)
+                {
+                    newArray[i] = _array[i];
+                }
+
+                // Replace the old array with the new array
+                _array = newArray;
             }
 
             // Step 2:
@@ -104,12 +116,52 @@ namespace DataStructuresProject
 
         public T RemoveElementAtRank(int rank)
         {
-            throw new NotImplementedException();
+            // Step 1:
+            // Validate the input!
+
+            // Rank < 0 is invalid (you can't have < 0 elements before you!)
+            // ArgumentOutOfRangeException.ThrowIfLessThan(rank, 0, nameof(rank));
+            if (rank < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(rank), "Rank must be greater than or equal to 0");
+            }
+
+            // if there are Size = 4 elements, the last element has a rank of 3
+            if (rank >= Size)
+            {
+                string message =
+                    Size == 0 ?
+                        "There are no elements to remove!" :
+                        $"Rank must have a value between 0 and {Size - 1} (inclusive).";
+                // There is no element which matches your input!
+                throw new ArgumentOutOfRangeException(nameof(rank), message);
+            }
+
+            // Step 2:
+            // Input is valid, we can remove the element at rank
+            T removedElement = _array[rank];
+
+            // shift the elements to close the gap left by the removed element
+            for (int i = rank; i < Size - 1; i++)
+            {
+                // shift the element forward by 1 place
+                _array[i] = _array[i + 1];
+            }
+
+            _array[Size - 1] = default; // remove the value stored here - this prevents memory leaks
+
+            // Step 4:
+            Size--;
+            return removedElement;
+
         }
 
         public T ReplaceElementAtRank(int rank, T newElement)
         {
-            throw new NotImplementedException();
+            // Get the element at rank and store it
+            // Put the new element in the same rank
+            // Return the element stored
+            throw new NotImplementedException("Exercise!");
         }
 
         public override string ToString()
