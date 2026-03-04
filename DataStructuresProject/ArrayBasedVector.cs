@@ -15,7 +15,13 @@ namespace DataStructuresProject
     public class ArrayBasedVector<T> : IVectorADT<T>
     {
         private const int DEFAULT_LENGTH = 4;
-        private T[] _array = new T[DEFAULT_LENGTH];
+        private T[] _array; // = new T[DEFAULT_LENGTH];
+        private int initialLength;
+
+        public ArrayBasedVector(int initialLength = DEFAULT_LENGTH)
+        {
+            _array = new T[initialLength];
+        }
 
         public int Size { get; private set; }
 

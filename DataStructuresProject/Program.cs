@@ -3,6 +3,46 @@ using DataStructuresProject;
 using System.ComponentModel;
 using System.Diagnostics;
 
+// TestStack();
+
+#pragma warning disable CS8321 // Local function is declared but never used
+static void TestStack()
+{
+    Stack_usingABV<string> stack_UsingABV = new Stack_usingABV<string>();
+
+    stack_UsingABV.Push("A");
+    stack_UsingABV.Push("B");
+    stack_UsingABV.Push("C");
+
+    Console.WriteLine(stack_UsingABV);
+    Console.ReadKey();
+
+    Console.WriteLine("Push D on top of the stack");
+    Console.WriteLine();
+
+    stack_UsingABV.Push("D");
+    Console.WriteLine(stack_UsingABV);
+    Console.ReadKey();
+
+    Console.WriteLine("Push E and F on top of the stack");
+    Console.WriteLine();
+
+    stack_UsingABV.Push("E");
+    stack_UsingABV.Push("F");
+    Console.WriteLine(stack_UsingABV);
+    Console.ReadKey();
+
+    Console.WriteLine("Pop top element");
+    Console.WriteLine($"The element {stack_UsingABV.Pop()} was popped!");
+
+    Console.WriteLine(stack_UsingABV);
+    Console.ReadKey();
+}
+#pragma warning restore CS8321 // Local function is declared but never used
+
+
+
+/*
 IVectorADT<string> vectorADT = new ArrayBasedVector<string>();
 
 vectorADT.InsertElementAtRank(0, "Hector");
@@ -17,6 +57,7 @@ vectorADT.RemoveElementAtRank(2);
 
 IVectorADT<int> test = new ArrayBasedVector<int>();
 Stopwatch stopwatch = new Stopwatch();
+*/
 
 /*
 for (int i = 0; i < 1000000; i++)
@@ -29,6 +70,7 @@ for (int i = 0; i < 1000000; i++)
 Console.WriteLine($"Time taken to insert 1 million elements at rank 0: {stopwatch.ElapsedTicks} ticks");
 */
 
+/*
 test = new ArrayBasedVector<int>();
 
 stopwatch.Reset();
@@ -43,3 +85,4 @@ Console.WriteLine($"Time taken to append 1 million elements: {stopwatch.ElapsedT
 Console.WriteLine($"Time taken to append 1 million elements: {stopwatch.ElapsedMilliseconds} ms");
 
 // Console.WriteLine(vectorADT);
+*/
