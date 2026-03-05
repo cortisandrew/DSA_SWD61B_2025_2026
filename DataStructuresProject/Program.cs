@@ -3,6 +3,16 @@ using DataStructuresProject;
 using System.ComponentModel;
 using System.Diagnostics;
 
+SinglyLinkedList<string> singlyLinkedList
+    = default!; // ! means that we don't want the IDE to complain (remove warning)
+
+singlyLinkedList = new SinglyLinkedList<string>();
+singlyLinkedList.AddFirst("A");
+singlyLinkedList.AddFirst("B");
+singlyLinkedList.AddFirst("C");
+singlyLinkedList.AddFirst("D");
+
+
 // TestStack();
 
 #pragma warning disable CS8321 // Local function is declared but never used
