@@ -1,6 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using DataStructuresProject;
 using System.ComponentModel;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.Diagnostics;
 
 SinglyLinkedList<string> singlyLinkedList
@@ -11,6 +13,42 @@ singlyLinkedList.AddFirst("A");
 singlyLinkedList.AddFirst("B");
 singlyLinkedList.AddFirst("C");
 singlyLinkedList.AddFirst("D");
+
+Node<string>? cursor =
+    singlyLinkedList.Head;
+
+try
+{
+    singlyLinkedList.RemoveBefore(cursor);
+}
+catch (InvalidOperationException) 
+{
+    // Log this
+    Console.WriteLine("We know this operation should not be called with the cursor == Head");
+}
+catch (NotImplementedException)
+{
+    Console.WriteLine("Yes, I will implement this later...");
+}
+/*
+catch
+{
+    // hiding the exception is an anti-pattern and very dangerous!
+}
+*/
+
+
+while (cursor != null)
+{
+    Console.WriteLine($"Cursor is at Node with element: {cursor.Element}");
+    cursor = singlyLinkedList.Next(cursor); //  move forward one step
+}
+
+// Points towards the Node "B"
+cursor = singlyLinkedList.Head.Next.Next;
+
+Console.WriteLine(
+    $"The element of the previous node is {singlyLinkedList.Previous(cursor).Element}"); // "C"
 
 
 // TestStack();
