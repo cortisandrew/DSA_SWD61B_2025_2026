@@ -9,13 +9,21 @@ SinglyLinkedList<string> singlyLinkedList
     = default!; // ! means that we don't want the IDE to complain (remove warning)
 
 singlyLinkedList = new SinglyLinkedList<string>();
-singlyLinkedList.AddFirst("A");
-singlyLinkedList.AddFirst("B");
-singlyLinkedList.AddFirst("C");
 singlyLinkedList.AddFirst("D");
+singlyLinkedList.AddFirst("C");
+singlyLinkedList.AddFirst("B");
+singlyLinkedList.AddFirst("X");
+singlyLinkedList.AddFirst("A");
+
+Console.WriteLine(singlyLinkedList);
+
 
 Node<string>? cursor =
     singlyLinkedList.Head;
+
+singlyLinkedList.RemoveAfter(cursor!);
+
+
 
 try
 {

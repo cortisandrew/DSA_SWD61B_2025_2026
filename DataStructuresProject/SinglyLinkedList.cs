@@ -29,6 +29,8 @@ namespace DataStructuresProject
         /// </summary>
         protected Node<T>? head = default;
 
+        protected Node<T>? tail = default;
+
         internal Node<T>? Head
         {
             get { return head; }
@@ -110,7 +112,7 @@ namespace DataStructuresProject
             return cursor;
         }
 
-        public Node<T>? Previous(Node<T>? cursor)
+        public Node<T> Previous(Node<T> cursor)
         {
             // cursor = cursor.Previous;
 
@@ -164,6 +166,7 @@ namespace DataStructuresProject
 
         public T RemoveAfter(Node<T> cursor)
         {
+            // Step (0): Validation
             // Cursor is null (i.e. there is no cursor)
             if (cursor == null)
             {
@@ -182,21 +185,100 @@ namespace DataStructuresProject
             T returnValue = 
                 cursor.Next.Element;
 
+            // Step (ii): "skip" the node to be removed
+            cursor.Next = cursor.Next.Next;
 
-            Node<T> cursorNext = cursor.Next;
+            // identical to the above
+            // cursor.Next = (cursor.Next).Next;
 
+            // also identical to the above
+            /*
+            // first get the node after the cursor
+            Node<T> nodeToRemove = cursor.Next;
+            cursor.Next = nodeToRemove.Next;
+            */
 
-            throw new NotImplementedException();
+            // Step (iii): Update the size (we removed one node!)
+            Size--;
+
+            // Step (iv):
+            return returnValue;
         }
 
         public void InsertBefore(Node<T> cursor, T element)
         {
-            throw new NotImplementedException();
+            // Step (0) - validation (cursor is not nullable, so this issue should not happen...  but if it does, we are checking anyway)
+            ArgumentNullException.ThrowIfNull(cursor, nameof(cursor));
+
+            // Check which case we need to apply.
+
+            // Case (i): cursor happens to be the first item in the linked list
+            // this is equivalent to AddFirst
+            if (cursor == Head)
+            {
+                AddFirst(element);
+                return;
+            }
+            else // case (ii): cursor is NOT the first item in the linked list
+            {
+                // Insert before is equivalent to Insert After of the previous
+                Node<T> prev = Previous(cursor);
+                // A null happens in case (i)
+                // or we could get an exception if the cursor is NOT in the linked list
+                InsertAfter(prev, element);
+                return;
+            }
         }
 
         public T RemoveBefore(Node<T> cursor)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("Exercise - use reduction like before!");
+        }
+
+        public override string ToString()
+        {
+            // Create a structure to store all the elements (we don't really need this extra structure... but it will make the implementation easier)
+            List<string> elements = new List<string>();
+
+            // Step (i) - start from the head of list. Note: this may be null if the linked list is empty
+            Node<T>? cursor = Head;
+
+            // check: when cursor == null, this means that we have finished going through the linked list
+            // and we can now print out all the elements that I have found
+            while (cursor != null)
+            {
+                // I am guaranteed that the cursor is NOT null
+                // BUT the cursor.Element is of type T. T might be nullable. So it is possible that someone
+                // create a node with a null element: new Node(null);
+
+                // while the cursor still points to a node, we have found a new element
+                elements.Add(
+                    cursor.Element?.ToString() ?? "NULL"
+                );
+
+                // cursor.Element.ToString() causes and issue if cursor.Element == null: (null).ToString()
+                // cursor.Element?.ToString() helps because this translates to:
+                // string? result = null;
+                // if (cursor.Element != null) {
+                //      result = cursor.Element.ToString();
+                // }
+                // else 
+                // {
+                //      result = null;
+                // }
+
+                // Null coalesce operators
+                // ?. - execute method if variable is not null, return null otherwise
+                // ?? - if the LHS is null, replace it with the rhs
+                // ??= - assign variable to rhs if it is null
+
+                // move one step forward
+                
+                // cursor.Next; - this is the next position
+                cursor = cursor.Next; // update the cursor to the next position (possibly null if we arrived at the end of list)
+            }
+
+            return string.Join(" -> ", elements);
         }
     }
 }
