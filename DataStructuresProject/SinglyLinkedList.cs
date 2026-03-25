@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,12 +30,19 @@ namespace DataStructuresProject
         /// </summary>
         protected Node<T>? head = default;
 
-        protected Node<T>? tail = default;
-
         internal Node<T>? Head
         {
             get { return head; }
-            set { head = value; }
+            private set { head = value; }
+        }
+        
+        /// <summary>
+        /// Implicitly (hidden), we also have the "tail" field
+        /// </summary>
+        internal Node<T>? Tail
+        {
+            get;
+            private set;
         }
 
         /// <summary>
@@ -53,6 +61,14 @@ namespace DataStructuresProject
             // the "old" head of list
             // this means that now every other node is after the newNode
             newNode.Next = head;
+
+            // Extra step to handle Tail of list
+            if (head == null) // equivalent to Tail == null, and equivalent to Count == 0
+            {
+                // This means that we are adding a new element to an empty list
+                // Therefore the node to be added is BOTH the first and the last node
+                Tail = newNode;
+            }
 
             // Step (iii): Destructive step
             // Replace the head of list with the new Node
@@ -91,6 +107,14 @@ namespace DataStructuresProject
 
             // Step 3:
             Size--;
+
+            // Extra step for removing last node and maintaing tail
+            if (head == null) // Size == 0
+            {
+                // we have just removed the last node!
+                // the linked list should be empty... therefore, no tail
+                Tail = null;
+            }
 
             // Step 4:
             return returnValue;
@@ -157,6 +181,13 @@ namespace DataStructuresProject
             // Step (ii): Update the next of the newNode
             newNode.Next = cursor.Next;
 
+            // Check if we need to update the Tail
+            if (Tail == cursor)
+            {
+                // we are inserting a new node AFTER the tail
+                Tail = newNode;
+            }
+
             // Step (iii): Update the next of the cursor
             cursor.Next = newNode;
 
@@ -185,9 +216,16 @@ namespace DataStructuresProject
             T returnValue = 
                 cursor.Next.Element;
 
+            // if cursor.Next == Tail, we are removing the last element
+            // this means that the node at cursor is now the new last node (i.e. Tail)
+            if (cursor.Next == Tail)
+            {
+                Tail = cursor;
+            }
+
+
             // Step (ii): "skip" the node to be removed
             cursor.Next = cursor.Next.Next;
-
             // identical to the above
             // cursor.Next = (cursor.Next).Next;
 
@@ -279,6 +317,18 @@ namespace DataStructuresProject
             }
 
             return string.Join(" -> ", elements);
+        }
+
+        public void AddLast(T item)
+        {
+            if (Tail == null) // Size == 0)
+            {
+                AddFirst(item);
+            }
+            else
+            {
+                InsertAfter(Tail, item);
+            }
         }
     }
 }
