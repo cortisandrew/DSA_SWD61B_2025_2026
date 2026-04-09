@@ -7,21 +7,44 @@ using System.Diagnostics;
 
 // Step 0: variables
 Stopwatch sw = new Stopwatch();
-int[] problemSizes = new[] { 100, 200, 400, 800, 1600, 3200, 6400 };
-int repetitions = 20;
+int[] problemSizes = new[] { 100, 200, 400, 800, 1600, 3200, 6400, 12800 };
+int repetitions = 100;
 
 
 // Step i:
 // Run some work without reporting the time (this avoids issues where the first run is slower)
+ArrayBasedVector<int> arrayBasedVector;
+
+
+for (int i = 0; i < repetitions; i++)
+{
+    arrayBasedVector = new ArrayBasedVector<int>();
+
+    for (int j = 0; j < 100; j++)
+    {
+        arrayBasedVector.Append(i);
+    }
+
+    sw.Start();
+    arrayBasedVector.Append(1);
+    sw.Stop();
+}
+
 
 // Step ii:
 // Repeat the same task for multiple problem sizes
+Console.WriteLine("Append");
 foreach (int problemSize in problemSizes)
 {
     sw.Reset(); // time is reset back to 0
 
     // Step ii.1:
-    // Setup the work to execute
+    // Setup the work to execute - create an array based vector with n elements
+    arrayBasedVector = new ArrayBasedVector<int>();
+    for (int i = 0; i < problemSize; i++)
+    {
+        arrayBasedVector.Append(i);
+    }
 
     // Step ii.2:
     // Repeat the measurement for the same problem size multiple times
@@ -29,11 +52,42 @@ foreach (int problemSize in problemSizes)
     {
         sw.Start(); // start but do not reset to 0
         // run the method here
-        sw.Stop();
+        arrayBasedVector.Append(i);
+        sw.Stop();  // stops the stopwatch, but does not reset
+    }
+    // elapsed ticks has the total time for running the same method over the repetitions
+
+    // print time / repetition
+    Console.WriteLine($"{problemSize}::{sw.ElapsedTicks/(double)repetitions}");
+}
+
+Console.WriteLine();
+Console.WriteLine("Insert At Rank 0");
+foreach (int problemSize in problemSizes)
+{
+    sw.Reset(); // time is reset back to 0
+
+    // Step ii.1:
+    // Setup the work to execute - create an array based vector with n elements
+    arrayBasedVector = new ArrayBasedVector<int>();
+    for (int i = 0; i < problemSize; i++)
+    {
+        arrayBasedVector.Append(i);
     }
 
-    // print total time
-    Console.WriteLine(sw.ElapsedTicks);
+    // Step ii.2:
+    // Repeat the measurement for the same problem size multiple times
+    for (int i = 0; i < repetitions; i++)
+    {
+        sw.Start(); // start but do not reset to 0
+        // run the method here
+        arrayBasedVector.InsertElementAtRank(0, 1);
+        sw.Stop();  // stops the stopwatch, but does not reset
+    }
+    // elapsed ticks has the total time for running the same method over the repetitions
+
+    // print time / repetition
+    Console.WriteLine($"{problemSize}::{sw.ElapsedTicks / (double)repetitions}");
 }
 
 // TestQueue();
