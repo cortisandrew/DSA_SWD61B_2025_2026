@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataStructuresProject", "Da
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheoreticalAnalysisExamples", "TheoreticalAnalysisExamples\TheoreticalAnalysisExamples.csproj", "{F7E33C01-B99D-4480-B69C-AEF9A4945D07}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SortingAlgorithm", "SortingAlgorithm\SortingAlgorithm.csproj", "{5DD9DDAF-DFD5-4F9F-B4B1-CEAA76FF6E47}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{F7E33C01-B99D-4480-B69C-AEF9A4945D07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7E33C01-B99D-4480-B69C-AEF9A4945D07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7E33C01-B99D-4480-B69C-AEF9A4945D07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DD9DDAF-DFD5-4F9F-B4B1-CEAA76FF6E47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DD9DDAF-DFD5-4F9F-B4B1-CEAA76FF6E47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DD9DDAF-DFD5-4F9F-B4B1-CEAA76FF6E47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DD9DDAF-DFD5-4F9F-B4B1-CEAA76FF6E47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

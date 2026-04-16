@@ -270,7 +270,63 @@ namespace DataStructuresProject
 
         public T RemoveBefore(Node<T> cursor)
         {
-            throw new NotImplementedException("Exercise - use reduction like before!");
+            // Step (i) validation
+
+            //ArgumentNullException.ThrowIfNull("You cannot remove before a null", nameof(cursor));
+
+            if (cursor != null)
+            {
+                throw new ArgumentNullException(nameof(cursor), "You cannot remove before a null");
+            }
+
+            if (cursor == Head)
+            {
+                // there is no node to remove
+                throw new InvalidOperationException("There is no node before the Head of list to remove");
+            }
+
+            if (Head == null)
+            {
+                throw new InvalidOperationException("You cannot remove from an empty linked list");
+            }
+
+            // Two cases:
+            // Case (i) - Node's previous is the Head - this means we should remove first
+            // Case (ii) - Node's previous is NOT the Head of list
+
+            // Option 1) - 
+            // Get Previous(Previous(cursor));
+            // Check whether Previous(cursor) is head
+            // Otherwise proceed with the Previous of the Previous
+
+            // Option 2) - 
+            // Check whether we have case (i) or case (ii) first
+            if (Head.Next == cursor)
+            {
+                // The node before the cursor (to be removed) is the head of list. We know how to solve this
+                return RemoveFirst();
+            }
+
+            Node<T> current = Head;
+
+            // Check each "current" node, one at a time, starting from head, until, either we find the correct node
+
+            // Until we can...
+            while (current.Next?.Next != null)
+            {
+                // check if the current node is the node that I'm looking for
+                if (current.Next.Next == cursor)
+                {
+                    // current is the node that I am looking for and we can solve case (ii)
+                    return RemoveAfter(current);
+                }
+
+                // current is not the correct node, move forward
+                current = current.Next;
+            }
+            // current.Next.Next == null means we have gone through all the nodes but found nothing!
+            // or, if no current is found, we have an issue with the list (e.g. cursor is not an element of the list)
+            throw new InvalidOperationException("There was an issue with the operation. Is cursor a node within your list?");
         }
 
         public override string ToString()
