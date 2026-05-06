@@ -1,12 +1,26 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Trees;
 
+List<int> list = new List<int>();
+
+
+
+int i = 5;
+int j = 8;
+
+list.Swap(i, j);
+
+List<string> myStringList = new List<string>();
+myStringList.Swap(i, j);
+
+
+
 Console.WriteLine("Hello, World!");
 
 BinarySearchTree<string> bst = new BinarySearchTree<string>();
 
 bst.Insert(5, "five");
-bst.Insert(5, "three");
+bst.Insert(3, "three");
 bst.Insert(7, "seven");
 bst.Insert(2, "two");
 bst.Insert(4, "four");
